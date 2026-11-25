@@ -7,6 +7,7 @@ export default function Layout() {
         { name: "dashboard", title: "Dashboard", icon: "speedometer-outline" },
         { name: "users", title: "Users", icon: "people-outline" },
         { name: "societies", title: "Societies", icon: "business-outline" },
+        { name: "profile", title: "Profile", icon: "person-outline" },
       ]}
     />
   );

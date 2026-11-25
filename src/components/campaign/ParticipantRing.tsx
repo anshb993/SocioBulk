@@ -24,8 +24,6 @@ export function ParticipantRing({ joined, max, size = 88 }: Props) {
           strokeLinecap="round"
           strokeDasharray={c}
           strokeDashoffset={c * (1 - pct)}
-          rotation="-90"
-          origin={`${mid}, ${mid}`}
         />
       </Svg>
       <View style={StyleSheet.absoluteFill} className="items-center justify-center">
