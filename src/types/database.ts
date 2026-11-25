@@ -40,6 +40,8 @@ export interface SocietyMembershipWithSociety extends SocietyMembership {
   societies: Society | null;
 }
 
+
+
 export interface Vendor {
   id: string;
   user_id: string;
@@ -78,4 +80,59 @@ export interface TierTemplateInput {
   min_participants: number;
   max_participants: number | null;
   price_per_person: number;
+}
+
+export type CampaignStatus =
+  | 'draft'
+  | 'open'
+  | 'confirmed'
+  | 'scheduled'
+  | 'completed'
+  | 'cancelled'
+  | 'expired';
+
+export type ParticipantStatus = 'joined' | 'left' | 'cancelled';
+
+export interface Campaign {
+  id: string;
+  society_id: string;
+  service_id: string;
+  created_by: string;
+  title: string;
+  description: string | null;
+  status: CampaignStatus;
+  individual_price: number;
+  locked_price_per_person: number | null;
+  min_participants: number;
+  max_participants: number;
+  current_participants: number;
+  join_deadline: string;
+  payment_deadline: string;
+  service_date: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CampaignTier {
+  id: string;
+  campaign_id: string;
+  min_participants: number;
+  max_participants: number | null;
+  price_per_person: number;
+}
+
+export interface CampaignPricing {
+  current_participants: number;
+  individual_price: number;
+  current_price: number;
+  savings: number;
+  next_tier_price: number | null;
+  residents_needed: number | null;
+}
+
+export interface CampaignWithDetails extends Campaign {
+  services: (Service & { vendors: Pick<Vendor, 'id' | 'business_name' | 'city'> | null }) | null;
+  campaign_tiers: CampaignTier[];
+  pricing?: CampaignPricing;
+  isJoined?: boolean;
 }

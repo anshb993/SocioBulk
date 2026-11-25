@@ -29,7 +29,13 @@ export function useAuthGuard() {
       if (!inAuth) router.replace("/login");
       return;
     }
-    if (inAuth || area !== roleArea[profile.role]) {
+
+    const allowedAreas = new Set<string>([roleArea[profile.role]]);
+    if (profile.role === "resident" || profile.role === "system_admin") {
+      allowedAreas.add("society-admin");
+    }
+
+    if (inAuth || !area || !allowedAreas.has(area)) {
       router.replace(roleHome[profile.role]);
     }
   }, [initialized, navState?.key, session, profile, segments, router]);
